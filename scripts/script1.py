@@ -25,8 +25,8 @@ def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter):
 
 # Visualization parameters
 xmin, xmax, ymin, ymax = -2.0, 1.0, -1.5, 1.5
-width, height = 800, 800
-max_iter = 256
+width, height = 400, 400  # Reduce resolution to speed up
+max_iter = 100  # Lower max iterations for faster processing
 
 # Create the figure
 fig, ax = plt.subplots()
@@ -36,18 +36,22 @@ im = ax.imshow(mandelbrot_image.T, cmap='hot', extent=[xmin, xmax, ymin, ymax])
 # Update function for animation
 def update(frame):
     global xmin, xmax, ymin, ymax
-    # Zoom in by shrinking the bounds
-    zoom_factor = 0.95 ** frame
-    xmin, xmax = xmin * zoom_factor, xmax * zoom_factor
-    ymin, ymax = ymin * zoom_factor, ymax * zoom_factor
+    zoom_factor = 0.98 ** frame  # Slow down zooming to avoid singular transformations
+    xmin_new, xmax_new = xmin * zoom_factor, xmax * zoom_factor
+    ymin_new, ymax_new = ymin * zoom_factor, ymax * zoom_factor
+
+    # Prevent transformation singularity by limiting zoom depth
+    if abs(xmax_new - xmin_new) < 0.001 or abs(ymax_new - ymin_new) < 0.001:
+        return [im]
     
+    xmin, xmax, ymin, ymax = xmin_new, xmax_new, ymin_new, ymax_new
     mandelbrot_image = mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter)
     im.set_array(mandelbrot_image.T)
     im.set_extent([xmin, xmax, ymin, ymax])
     return [im]
 
 # Create the animation
-ani = animation.FuncAnimation(fig, update, frames=300, blit=True)
+ani = animation.FuncAnimation(fig, update, frames=200, blit=True)  # Reduce number of frames
 
 # Save the animation as an MP4 video
 ani.save("mandelbrot_animation.mp4", writer="ffmpeg", fps=10)
