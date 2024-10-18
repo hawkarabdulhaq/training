@@ -27,10 +27,12 @@ xmin, xmax, ymin, ymax = -2.0, 1.0, -1.5, 1.5
 width, height = 800, 800
 max_iter = 256
 
-# Generate and plot the fractal
+# Generate and save the fractal image
 mandelbrot_image = mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter)
 
 plt.imshow(mandelbrot_image.T, cmap='hot', extent=[xmin, xmax, ymin, ymax])
 plt.colorbar()
 plt.title("Mandelbrot Fractal")
-plt.show()
+
+# Save the image to a file instead of displaying it
+plt.savefig("mandelbrot_fractal.png")
