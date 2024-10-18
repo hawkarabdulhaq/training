@@ -39,4 +39,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: mandelbrot-animation
-        path: mandelbrot_animation.mp4  # Upload the video as an artifact
+        path: scripts/mandelbrot_animation.mp4  # Ensure the correct path to the video file
