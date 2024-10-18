@@ -11,7 +11,7 @@ def mandelbrot(c, max_iter):
         n += 1
     return n
 
-# Generate the Mandelbrot set
+# Generate the Mandelbrot set 
 def mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter):
     r1 = np.linspace(xmin, xmax, width)
     r2 = np.linspace(ymin, ymax, height)
