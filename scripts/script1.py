@@ -54,6 +54,7 @@ def update(frame):
 ani = animation.FuncAnimation(fig, update, frames=450, blit=True)  # More frames for longer animation
 
 # Save the animation as an MP4 video
-ani.save("mandelbrot_edge_focus.mp4", writer="ffmpeg", fps=10)  # 45 seconds at 10 fps
+ani.save("scripts/mandelbrot_animation.mp4", writer="ffmpeg", fps=10)
+
 
 plt.close()  # Close the plot to prevent it from displaying
