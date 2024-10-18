@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated to the latest version
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # Updated to the latest version
       with:
         python-version: '3.x'
 
@@ -27,16 +27,16 @@ jobs:
     - name: Install ffmpeg
       run: |
         sudo apt-get update
-        sudo apt-get install -y ffmpeg  # Install ffmpeg
+        sudo apt-get install -y ffmpeg
 
     - name: Check ffmpeg installation
-      run: ffmpeg -version  # Ensure ffmpeg is installed
+      run: ffmpeg -version
 
     - name: Run script
-      run: python scripts/script1.py  # Run the script to generate animation
+      run: python scripts/script1.py  # Run the script to generate the animation
 
     - name: Upload Mandelbrot animation artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Updated to the latest version
       with:
         name: mandelbrot-animation
         path: scripts/mandelbrot_animation.mp4  # Ensure the correct path to the video file
