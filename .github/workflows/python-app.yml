@@ -35,6 +35,9 @@ jobs:
     - name: Run script
       run: python scripts/script1.py  # Run the script to generate the animation
 
+    - name: List files in the scripts directory  # Add this to check the generated files
+      run: ls -la scripts/
+
     - name: Upload Mandelbrot animation artifact
       uses: actions/upload-artifact@v4  # Updated to the latest version
       with:
