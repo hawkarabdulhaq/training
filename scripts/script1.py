@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 # Function to compute the Mandelbrot set
 def mandelbrot(c, max_iter):
@@ -27,12 +28,28 @@ xmin, xmax, ymin, ymax = -2.0, 1.0, -1.5, 1.5
 width, height = 800, 800
 max_iter = 256
 
-# Generate and save the fractal image
+# Create the figure
+fig, ax = plt.subplots()
 mandelbrot_image = mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter)
+im = ax.imshow(mandelbrot_image.T, cmap='hot', extent=[xmin, xmax, ymin, ymax])
 
-plt.imshow(mandelbrot_image.T, cmap='hot', extent=[xmin, xmax, ymin, ymax])
-plt.colorbar()
-plt.title("Mandelbrot Fractal")
+# Update function for animation
+def update(frame):
+    global xmin, xmax, ymin, ymax
+    # Zoom in by shrinking the bounds
+    zoom_factor = 0.95 ** frame
+    xmin, xmax = xmin * zoom_factor, xmax * zoom_factor
+    ymin, ymax = ymin * zoom_factor, ymax * zoom_factor
+    
+    mandelbrot_image = mandelbrot_set(xmin, xmax, ymin, ymax, width, height, max_iter)
+    im.set_array(mandelbrot_image.T)
+    im.set_extent([xmin, xmax, ymin, ymax])
+    return [im]
 
-# Save the image to a file instead of displaying it
-plt.savefig("mandelbrot_fractal.png")
+# Create the animation
+ani = animation.FuncAnimation(fig, update, frames=300, blit=True)
+
+# Save the animation as an MP4 video
+ani.save("mandelbrot_animation.mp4", writer="ffmpeg", fps=10)
+
+plt.close()  # Close the plot to prevent it from displaying
