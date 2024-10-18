@@ -25,10 +25,15 @@ jobs:
         pip install numpy matplotlib
 
     - name: Install ffmpeg
-      run: sudo apt-get install ffmpeg
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg  # Install ffmpeg
+
+    - name: Check ffmpeg installation
+      run: ffmpeg -version  # Ensure ffmpeg is installed
 
     - name: Run script
-      run: python scripts/script1.py  # Run the script
+      run: python scripts/script1.py  # Run the script to generate animation
 
     - name: Upload Mandelbrot animation artifact
       uses: actions/upload-artifact@v3
