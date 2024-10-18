@@ -26,4 +26,4 @@ jobs:
 
     - name: Run script
       run: |
-        python script.py/start.py  # Replace this with the path to your Python script
+        python scripts/script.py  # Replace this with the path to your Python script
