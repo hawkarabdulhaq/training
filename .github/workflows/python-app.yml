@@ -1,4 +1,4 @@
-name: Run Python Script and Upload Artifact
+name: Run Python Script and Upload Animation
 
 on:
   push:
@@ -24,11 +24,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install numpy matplotlib
 
+    - name: Install ffmpeg
+      run: sudo apt-get install ffmpeg
+
     - name: Run script
       run: python scripts/script1.py  # Run the script
 
-    - name: Upload Mandelbrot image artifact
+    - name: Upload Mandelbrot animation artifact
       uses: actions/upload-artifact@v3
       with:
-        name: mandelbrot-fractal
-        path: mandelbrot_fractal.png  # Upload the image as an artifact
+        name: mandelbrot-animation
+        path: mandelbrot_animation.mp4  # Upload the video as an artifact
